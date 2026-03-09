@@ -33,7 +33,7 @@ const SignatureModal = ({ onClose, onSuccess, onOpenPrivacy }) => {
                 const position = await new Promise((resolve, reject) => {
                     navigator.geolocation.getCurrentPosition(resolve, reject, {
                         enableHighAccuracy: true,
-                        timeout: 30000,
+                        timeout: 60000,
                         maximumAge: 0
                     });
                 });
