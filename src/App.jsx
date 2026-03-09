@@ -42,7 +42,7 @@ function App() {
                   {lightCount.toLocaleString()}
                 </span>
                 <span className="text-amber-500/80 text-xs font-medium tracking-widest uppercase">
-                  {lightCount === 1 ? 'luce accesa' : 'luci accese'}
+                  {lightCount === 1 ? 'light lit' : 'lights lit'}
                 </span>
               </div>
             )}
@@ -94,8 +94,8 @@ function App() {
         </div>
       )}
 
-      {/* Footer — fixed bottom-right to avoid overlapping the action buttons */}
-      <footer className="fixed bottom-3 right-4 z-20 flex gap-3 text-xs text-slate-600 pointer-events-auto">
+      {/* Footer — fixed bottom-left, away from Mapbox attribution on the right */}
+      <footer className="fixed bottom-3 left-4 z-20 flex gap-3 text-xs text-slate-600 pointer-events-auto">
         <button onClick={() => setShowPrivacy(true)} className="hover:text-slate-400 transition-colors">
           Privacy Policy
         </button>
