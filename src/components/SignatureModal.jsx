@@ -89,7 +89,7 @@ const SignatureModal = ({ onClose, onSuccess, onOpenPrivacy }) => {
             }
 
             localStorage.setItem(SIGNED_KEY, '1');
-            onSuccess();
+            onSuccess(name.trim());
 
         } catch (err) {
             console.error('Signature error:', err);
@@ -111,7 +111,7 @@ const SignatureModal = ({ onClose, onSuccess, onOpenPrivacy }) => {
         return (
             <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-300">
                 <div className="relative w-full max-w-md p-8 bg-slate-900 border border-slate-800 rounded-3xl shadow-2xl animate-in zoom-in-95 duration-300 text-center">
-                    <button onClick={onClose} className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors">
+                    <button onClick={() => { onSuccess(name.trim() || ''); onClose(); }} className="absolute top-6 right-6 text-slate-400 hover:text-white transition-colors">
                         <X className="w-5 h-5" />
                     </button>
                     <div className="flex flex-col items-center gap-4 py-4">
@@ -122,7 +122,7 @@ const SignatureModal = ({ onClose, onSuccess, onOpenPrivacy }) => {
                         <p className="text-slate-400 leading-relaxed">
                             Your light is already shining on the map. Thank you for standing for peace. ✌️
                         </p>
-                        <button onClick={onClose} className="mt-4 px-8 py-3 bg-amber-500 text-slate-950 font-bold rounded-full hover:bg-amber-400 transition-all">
+                        <button onClick={() => { onSuccess(name.trim() || ''); onClose(); }} className="mt-4 px-8 py-3 bg-amber-500 text-slate-950 font-bold rounded-full hover:bg-amber-400 transition-all">
                             Close
                         </button>
                     </div>
