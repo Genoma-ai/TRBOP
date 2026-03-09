@@ -15,6 +15,7 @@ function App() {
   const [showConflicts, setShowConflicts] = useState(false);
   const [showPrivacy, setShowPrivacy] = useState(false);
   const [showCookies, setShowCookies] = useState(false);
+  const [lightCount, setLightCount] = useState(null);
 
   return (
     <div className="relative min-h-screen w-full bg-slate-950 flex flex-col items-center overflow-x-hidden">
@@ -31,11 +32,25 @@ function App() {
             <p className="text-slate-400 font-medium tracking-widest uppercase text-xs mt-2">
               A declaration by the people, for the people
             </p>
+            {lightCount !== null && (
+              <div className="mt-4 flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 backdrop-blur-sm">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-300 shadow-[0_0_6px_rgba(251,191,36,1)]"></span>
+                </span>
+                <span className="text-amber-300 text-sm font-semibold tracking-wide">
+                  {lightCount.toLocaleString()}
+                </span>
+                <span className="text-amber-500/80 text-xs font-medium tracking-widest uppercase">
+                  {lightCount === 1 ? 'luce accesa' : 'luci accese'}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Map Layer - Primary Focus */}
           <div className="relative z-10 w-full flex-grow flex items-center justify-center opacity-90 mix-blend-screen min-h-[60vh]">
-            <Map showConflicts={showConflicts} /* onConflictClick={setSelectedConflict} */ />
+            <Map showConflicts={showConflicts} /* onConflictClick={setSelectedConflict} */ onLightCountChange={setLightCount} />
           </div>
 
           {/* Floating Actions */}
@@ -79,8 +94,8 @@ function App() {
         </div>
       )}
 
-      {/* Footer */}
-      <footer className="relative z-20 w-full py-4 flex justify-center gap-4 text-xs text-slate-600 pointer-events-auto">
+      {/* Footer — fixed bottom-right to avoid overlapping the action buttons */}
+      <footer className="fixed bottom-3 right-4 z-20 flex gap-3 text-xs text-slate-600 pointer-events-auto">
         <button onClick={() => setShowPrivacy(true)} className="hover:text-slate-400 transition-colors">
           Privacy Policy
         </button>

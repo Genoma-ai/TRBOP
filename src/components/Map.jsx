@@ -5,7 +5,7 @@ import { supabase } from '../lib/supabase';
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
-const Map = ({ showConflicts, onConflictClick }) => {
+const Map = ({ showConflicts, onConflictClick, onLightCountChange }) => {
     const [signatures, setSignatures] = useState([]);
     const [conflicts, setConflicts] = useState([]);
 
@@ -20,6 +20,7 @@ const Map = ({ showConflicts, onConflictClick }) => {
                 console.error('Error fetching signatures:', error);
             } else if (data) {
                 setSignatures(data);
+                if (onLightCountChange) onLightCountChange(data.length);
             }
         };
 
@@ -36,7 +37,11 @@ const Map = ({ showConflicts, onConflictClick }) => {
                     table: 'signatures',
                 },
                 (payload) => {
-                    setSignatures((prev) => [...prev, payload.new]);
+                    setSignatures((prev) => {
+                        const updated = [...prev, payload.new];
+                        if (onLightCountChange) onLightCountChange(updated.length);
+                        return updated;
+                    });
                 }
             )
             .subscribe();
