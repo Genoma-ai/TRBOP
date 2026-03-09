@@ -3,6 +3,9 @@ import Map from './components/Map';
 import Manifesto from './components/Manifesto';
 import SignatureModal from './components/SignatureModal';
 import ConflictModal from './components/ConflictModal';
+import CookieBanner from './components/CookieBanner';
+import PrivacyPolicyModal from './components/PrivacyPolicyModal';
+import CookiePolicyModal from './components/CookiePolicyModal';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -10,6 +13,8 @@ function App() {
   const [hasSigned, setHasSigned] = useState(false);
   const [view, setView] = useState('map'); // 'map' or 'manifesto'
   const [showConflicts, setShowConflicts] = useState(false);
+  const [showPrivacy, setShowPrivacy] = useState(false);
+  const [showCookies, setShowCookies] = useState(false);
 
   return (
     <div className="relative min-h-screen w-full bg-slate-950 flex flex-col items-center overflow-x-hidden">
@@ -74,6 +79,17 @@ function App() {
         </div>
       )}
 
+      {/* Footer */}
+      <footer className="relative z-20 w-full py-4 flex justify-center gap-4 text-xs text-slate-600 pointer-events-auto">
+        <button onClick={() => setShowPrivacy(true)} className="hover:text-slate-400 transition-colors">
+          Privacy Policy
+        </button>
+        <span>·</span>
+        <button onClick={() => setShowCookies(true)} className="hover:text-slate-400 transition-colors">
+          Cookie Policy
+        </button>
+      </footer>
+
       {/* Signature Modal */}
       {showModal && (
         <SignatureModal
@@ -81,8 +97,9 @@ function App() {
           onSuccess={() => {
             setShowModal(false);
             setHasSigned(true);
-            setView('map'); // Return to map to see their light
+            setView('map');
           }}
+          onOpenPrivacy={() => setShowPrivacy(true)}
         />
       )}
 
@@ -91,6 +108,23 @@ function App() {
         conflict={selectedConflict}
         onClose={() => setSelectedConflict(null)}
       /> */}
+
+      {/* Privacy Policy Modal */}
+      {showPrivacy && <PrivacyPolicyModal onClose={() => setShowPrivacy(false)} />}
+
+      {/* Cookie Policy Modal */}
+      {showCookies && (
+        <CookiePolicyModal
+          onClose={() => setShowCookies(false)}
+          onOpenPrivacy={() => { setShowCookies(false); setShowPrivacy(true); }}
+        />
+      )}
+
+      {/* Cookie Consent Banner */}
+      <CookieBanner
+        onOpenPrivacy={() => setShowPrivacy(true)}
+        onOpenCookies={() => setShowCookies(true)}
+      />
     </div>
   );
 }

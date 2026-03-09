@@ -4,7 +4,7 @@ import { Loader2, X, MapPin, CheckCircle2 } from 'lucide-react';
 const SIGNED_KEY = 'trwop_signed';
 const SIGN_FUNCTION_URL = 'https://loujgwxhiajdqkjcuhed.supabase.co/functions/v1/sign';
 
-const SignatureModal = ({ onClose, onSuccess }) => {
+const SignatureModal = ({ onClose, onSuccess, onOpenPrivacy }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [loading, setLoading] = useState(false);
@@ -204,6 +204,16 @@ const SignatureModal = ({ onClose, onSuccess }) => {
                             'Add My Light'
                         )}
                     </button>
+                    <p className="text-center text-xs text-slate-600 mt-3">
+                        By signing, you agree to our{' '}
+                        <button
+                            type="button"
+                            onClick={onOpenPrivacy}
+                            className="text-amber-500/70 underline hover:text-amber-400 transition-colors"
+                        >
+                            Privacy Policy
+                        </button>.
+                    </p>
                 </form>
 
             </div>
