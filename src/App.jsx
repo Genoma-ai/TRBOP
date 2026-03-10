@@ -73,17 +73,17 @@ function App() {
             <div className="flex w-full sm:w-auto gap-2 sm:gap-4">
               <button
                 onClick={() => setShowConflicts(!showConflicts)}
-                className={`flex-1 sm:flex-none px-4 py-3 border font-medium rounded-full text-xs sm:text-sm transition-all duration-300 flex items-center justify-center gap-2 ${showConflicts
+                className={`flex-1 sm:flex-none px-3 py-2.5 sm:px-4 sm:py-3 border font-medium rounded-full text-[11px] sm:text-sm transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 ${showConflicts
                   ? 'bg-red-500/20 text-red-100 border-red-500/50 shadow-[0_0_15px_-3px_rgba(239,68,68,0.4)]'
                   : 'bg-slate-900/80 text-slate-300 border-slate-700 hover:bg-slate-800 backdrop-blur-md'
                   }`}
               >
-                <div className={`w-2 h-2 rounded-full min-w-[8px] ${showConflicts ? 'bg-red-500 animate-pulse shadow-[0_0_5px_rgba(239,68,68,1)]' : 'bg-slate-500'}`}></div>
+                <div className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full min-w-[6px] sm:min-w-[8px] ${showConflicts ? 'bg-red-500 animate-pulse shadow-[0_0_5px_rgba(239,68,68,1)]' : 'bg-slate-500'}`}></div>
                 <span className="whitespace-nowrap">{showConflicts ? 'Hide Wars' : 'Show Wars'}</span>
               </button>
               <button
                 onClick={() => setView('manifesto')}
-                className="flex-1 sm:flex-none px-4 py-3 bg-slate-900/80 backdrop-blur-md border border-slate-700 text-slate-200 font-medium rounded-full text-xs sm:text-sm hover:bg-slate-800 transition-colors whitespace-nowrap text-center"
+                className="flex-1 sm:flex-none px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-900/80 backdrop-blur-md border border-slate-700 text-slate-200 font-medium rounded-full text-[11px] sm:text-sm hover:bg-slate-800 transition-colors whitespace-nowrap text-center"
               >
                 Read Manifesto
               </button>
@@ -93,16 +93,16 @@ function App() {
             <div className="flex w-full sm:w-auto gap-2 sm:gap-4">
               <button
                 onClick={() => setShowModal(true)}
-                className="flex-[2] sm:flex-none px-6 py-3 bg-amber-500 text-slate-950 font-bold rounded-full text-sm shadow-[0_0_20px_-5px_rgba(251,191,36,0.5)] hover:bg-amber-400 hover:scale-105 transition-all whitespace-nowrap"
+                className="flex-[2] sm:flex-none px-4 py-2.5 sm:px-6 sm:py-3 bg-amber-500 text-slate-950 font-bold rounded-full text-xs sm:text-sm shadow-[0_0_20px_-5px_rgba(251,191,36,0.5)] hover:bg-amber-400 hover:scale-105 transition-all whitespace-nowrap"
               >
                 Add My Light
               </button>
               {hasSigned && (
                 <button
                   onClick={() => setShowShare(true)}
-                  className="flex-1 sm:flex-none px-4 py-3 bg-slate-900/80 backdrop-blur-md border border-slate-700 text-slate-200 font-medium rounded-full text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-2 whitespace-nowrap"
+                  className="flex-1 sm:flex-none px-3 py-2.5 sm:px-4 sm:py-3 bg-slate-900/80 backdrop-blur-md border border-slate-700 text-slate-200 font-medium rounded-full text-[11px] sm:text-sm hover:bg-slate-800 transition-all flex items-center justify-center gap-1.5 sm:gap-2 whitespace-nowrap"
                 >
-                  <svg className="w-4 h-4 hidden sm:block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="w-3 h-3 sm:w-4 sm:h-4 block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                   </svg>
                   Share
