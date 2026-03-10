@@ -23,7 +23,19 @@ async function drawCard(canvas, lightCount, signerName, mapImage) {
     // ── Map image — smoother fade over 45% of height ────────────────────────
     const MAP_H = Math.round(H * 0.45);   // ~864 px
     if (mapImage) {
-        ctx.drawImage(mapImage, 0, 0, W, MAP_H);
+        // Render image maintaining aspect ratio (object-fit: cover)
+        const scale = Math.max(W / mapImage.width, MAP_H / mapImage.height);
+        const nw = mapImage.width * scale;
+        const nh = mapImage.height * scale;
+        const offsetX = (W - nw) / 2;
+        const offsetY = (MAP_H - nh) / 2;
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.rect(0, 0, W, MAP_H);
+        ctx.clip();
+        ctx.drawImage(mapImage, offsetX, offsetY, nw, nh);
+        ctx.restore();
 
         // Smoother, longer gradient
         const mapFade = ctx.createLinearGradient(0, MAP_H * 0.15, 0, MAP_H);
