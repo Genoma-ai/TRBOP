@@ -1,17 +1,30 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import MapboxMap, { Marker } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { supabase } from '../lib/supabase';
 
 const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN;
 
-const Map = ({ showConflicts, onConflictClick, onLightCountChange }) => {
+const Map = ({ showConflicts, onConflictClick, onLightCountChange, onMapReady, onWarCountChange }) => {
+    const mapRef = useRef(null);
+
+    const handleMapLoad = useCallback((evt) => {
+        mapRef.current = evt.target;
+        if (onMapReady) {
+            onMapReady(() => {
+                if (!mapRef.current) return null;
+                const mapCanvas = mapRef.current.getCanvas();
+                return mapCanvas ? mapCanvas.toDataURL('image/png') : null;
+            });
+        }
+    }, [onMapReady]);
     const [signatures, setSignatures] = useState([]);
     const [conflicts, setConflicts] = useState([]);
 
     useEffect(() => {
         // Initial fetch of all existing signatures
         const fetchSignatures = async () => {
+            // Fetch markers (up to 1000 for display)
             const { data, error } = await supabase
                 .from('signatures')
                 .select('*');
@@ -20,7 +33,15 @@ const Map = ({ showConflicts, onConflictClick, onLightCountChange }) => {
                 console.error('Error fetching signatures:', error);
             } else if (data) {
                 setSignatures(data);
-                if (onLightCountChange) onLightCountChange(data.length);
+            }
+
+            // Fetch exact total count separately (no row limit)
+            const { count, error: countError } = await supabase
+                .from('signatures')
+                .select('*', { count: 'exact', head: true });
+
+            if (!countError && count !== null && onLightCountChange) {
+                onLightCountChange(count);
             }
         };
 
@@ -62,6 +83,7 @@ const Map = ({ showConflicts, onConflictClick, onLightCountChange }) => {
                 console.error('Error fetching conflicts:', error);
             } else if (data) {
                 setConflicts(data);
+                if (onWarCountChange) onWarCountChange(data.length);
             }
         };
 
@@ -96,6 +118,8 @@ const Map = ({ showConflicts, onConflictClick, onLightCountChange }) => {
                 mapboxAccessToken={MAPBOX_TOKEN}
                 projection="mercator"
                 style={{ width: '100%', height: '100%' }}
+                preserveDrawingBuffer={true}
+                onLoad={handleMapLoad}
             >
                 {markers.map((marker, index) => (
                     <Marker
