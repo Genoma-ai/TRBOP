@@ -20,6 +20,7 @@ const Map = ({ showConflicts, onConflictClick, onLightCountChange, onMapReady, o
     }, [onMapReady]);
     const [signatures, setSignatures] = useState([]);
     const [conflicts, setConflicts] = useState([]);
+    const [activeConflictId, setActiveConflictId] = useState(null);
 
     useEffect(() => {
         // Initial fetch of all existing signatures
@@ -120,6 +121,7 @@ const Map = ({ showConflicts, onConflictClick, onLightCountChange, onMapReady, o
                 style={{ width: '100%', height: '100%' }}
                 preserveDrawingBuffer={true}
                 onLoad={handleMapLoad}
+                onClick={() => setActiveConflictId(null)}
             >
                 {markers.map((marker, index) => (
                     <Marker
@@ -151,7 +153,9 @@ const Map = ({ showConflicts, onConflictClick, onLightCountChange, onMapReady, o
                         <div
                             className="relative flex items-center justify-center group cursor-pointer z-20"
                             onClick={(e) => {
+                                e.originalEvent?.stopPropagation();
                                 e.stopPropagation();
+                                setActiveConflictId(activeConflictId === conflict.id ? null : conflict.id);
                                 if (onConflictClick) onConflictClick(conflict);
                             }}
                         >
@@ -162,8 +166,11 @@ const Map = ({ showConflicts, onConflictClick, onLightCountChange, onMapReady, o
                             {/* Warning ring */}
                             <div className="w-6 h-6 rounded-full border border-red-500 opacity-30"></div>
 
-                            {/* Tooltip on hover */}
-                            <div className="absolute bottom-full mb-3 w-48 p-3 bg-slate-900 border border-slate-700/50 rounded-lg shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 pointer-events-none z-50">
+                            {/* Tooltip on hover or click */}
+                            <div className={`absolute bottom-full mb-3 w-48 p-3 bg-slate-900 border border-slate-700/50 rounded-lg shadow-2xl transition-all duration-300 pointer-events-none z-50 ${activeConflictId === conflict.id
+                                    ? 'opacity-100 visible'
+                                    : 'opacity-0 invisible group-hover:opacity-100 group-hover:visible'
+                                }`}>
                                 <h3 className="text-white text-xs font-bold mb-1">{conflict.name}</h3>
                                 <p className="text-slate-400 text-[10px] leading-relaxed">{conflict.description}</p>
                             </div>
