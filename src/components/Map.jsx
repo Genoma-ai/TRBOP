@@ -131,11 +131,11 @@ const Map = ({ showConflicts, onConflictClick, onLightCountChange, onMapReady, o
                         {/* Tiny, intense glowing dot implementation */}
                         <div className="relative flex items-center justify-center">
                             {/* Inner bright core */}
-                            <div className="w-1 h-1 bg-amber-200 rounded-full absolute z-10 shadow-[0_0_8px_rgba(251,191,36,1)]"></div>
+                            <div className="w-[3px] h-[3px] bg-amber-200 rounded-full absolute z-10 shadow-[0_0_6px_rgba(251,191,36,1)]"></div>
                             {/* Outer soft aura */}
-                            <div className="w-3 h-3 bg-amber-400/30 rounded-full absolute animate-pulse"></div>
+                            <div className="w-1.5 h-1.5 bg-amber-400/30 rounded-full absolute animate-pulse"></div>
                             {/* Very faint wide ring */}
-                            <div className="w-5 h-5 rounded-full border border-amber-400 opacity-20"></div>
+                            <div className="w-3 h-3 rounded-full border border-amber-400 opacity-20"></div>
                         </div>
                     </Marker>
                 ))}
