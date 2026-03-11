@@ -36,7 +36,7 @@ function App() {
           {/* Header over Map */}
           <div className="relative z-20 w-full pt-8 pb-4 px-4 md:px-6 flex flex-col items-center pointer-events-auto">
             <h1 className="text-3xl md:text-5xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-slate-100 to-slate-500 pb-1 text-center leading-tight">
-              The Real Board of Peace
+              The (Real) Board of Peace
             </h1>
             <p className="text-slate-400 font-medium tracking-widest uppercase text-[10px] md:text-xs mt-2 text-center max-w-[280px] md:max-w-none">
               A declaration by the people, for the people

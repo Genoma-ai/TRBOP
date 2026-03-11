@@ -184,7 +184,7 @@ async function drawCard(canvas, lightCount, signerName, mapImage) {
     });
 
     // ── Bottom branding ──────────────────────────────────────────────────────
-    text('The Real Board of Peace', cx, BOTTOM_RULE_Y + 440, {
+    text('The (Real) Board of Peace', cx, BOTTOM_RULE_Y + 440, {
         size: 34,
         weight: '300',
         family: "'Georgia', serif",
@@ -260,7 +260,7 @@ const ShareStoryModal = ({ onClose, lightCount, signerName, getMapSnapshot }) =>
                 await navigator.share({
                     files: [file],
                     title: 'I signed for peace',
-                    text: 'Join me on The Real Board of Peace — www.trbop.com',
+                    text: 'Join me on The (Real) Board of Peace — www.trbop.com',
                 });
             } else {
                 await handleDownload();
